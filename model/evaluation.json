@@ -1,0 +1,81 @@
+{
+    "dataset_samples": 240,
+    "training_samples": 192,
+    "testing_samples": 48,
+    "cross_validation": {
+        "method": "5-Fold K-Fold Cross Validation",
+        "folds": 5
+    },
+    "quality_model": {
+        "algorithm": "Linear Regression",
+        "MAE": 3.758,
+        "RMSE": 4.6595,
+        "R2": 0.8363,
+        "CV_MAE": 4.0057,
+        "CV_RMSE": 4.9779,
+        "CV_R2": 0.7912
+    },
+    "bug_risk_model": {
+        "algorithm": "Random Forest",
+        "MAE": 5.037,
+        "RMSE": 6.1696,
+        "R2": 0.8131,
+        "CV_MAE": 4.457,
+        "CV_RMSE": 5.4619,
+        "CV_R2": 0.8522
+    },
+    "model_comparison": {
+        "quality": {
+            "Random Forest": {
+                "CV_MAE": 3.8894,
+                "CV_RMSE": 5.0364,
+                "CV_R2": 0.7875,
+                "MAE": 4.5155,
+                "RMSE": 5.4671,
+                "R2": 0.7746
+            },
+            "Gradient Boosting": {
+                "CV_MAE": 4.1101,
+                "CV_RMSE": 5.1712,
+                "CV_R2": 0.7755,
+                "MAE": 4.0227,
+                "RMSE": 4.9226,
+                "R2": 0.8173
+            },
+            "Linear Regression": {
+                "CV_MAE": 4.0057,
+                "CV_RMSE": 4.9779,
+                "CV_R2": 0.7912,
+                "MAE": 3.758,
+                "RMSE": 4.6595,
+                "R2": 0.8363
+            }
+        },
+        "bug_risk": {
+            "Random Forest": {
+                "CV_MAE": 4.457,
+                "CV_RMSE": 5.4619,
+                "CV_R2": 0.8522,
+                "MAE": 5.037,
+                "RMSE": 6.1696,
+                "R2": 0.8131
+            },
+            "Gradient Boosting": {
+                "CV_MAE": 4.6961,
+                "CV_RMSE": 5.6981,
+                "CV_R2": 0.8411,
+                "MAE": 5.2893,
+                "RMSE": 6.2551,
+                "R2": 0.8079
+            },
+            "Linear Regression": {
+                "CV_MAE": 4.8705,
+                "CV_RMSE": 5.977,
+                "CV_R2": 0.8245,
+                "MAE": 5.3596,
+                "RMSE": 6.8741,
+                "R2": 0.768
+            }
+        }
+    }
+}

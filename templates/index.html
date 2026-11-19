@@ -1,0 +1,705 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CodeGuard AI | Intelligent Code Analysis</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+        <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css"
+>
+    >
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <div class="brand">
+                <div class="brand-logo">CG</div>
+
+                <div class="brand-text">
+                    <span class="brand-name">CodeGuard AI</span>
+                    <span class="brand-subtitle">Intelligent Code Analysis</span>
+                </div>
+            </div>
+
+            <div class="nav-status">
+                <span class="status-dot"></span>
+                <span>ML Engine Online</span>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+                    AI-POWERED CODE INTELLIGENCE
+                </div>
+
+                <h1>
+                    Understand Your Code.
+                    <span>Improve It.</span>
+                </h1>
+
+                <p>
+                    CodeGuard AI analyzes Python code to estimate
+                    its quality, identify possible issues and
+                    suggest simple ways to improve it.
+                </p>
+
+                <div class="hero-features">
+
+                    <div class="hero-feature">
+                        <span>✓</span>
+                        Code Structure Analysis
+                    </div>
+
+                    <div class="hero-feature">
+                        <span>✓</span>
+                        Quality Prediction
+                    </div>
+
+                    <div class="hero-feature">
+                        <span>✓</span>
+                        Smart Suggestions
+                    </div>
+
+                </div>
+            <button id="openAnalyzerBtn" class="hero-cta">
+    Analyze Your Code
+    <span>→</span>
+</button>
+            </div>
+        
+        </div>
+    </section>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container editor-screen" id="editorScreen">
+
+    <button id="backToHomeBtn" class="back-home-btn">
+        ← Back to Home
+    </button>
+
+
+        <!-- CODE ANALYZER -->
+        <section class="analyzer-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">CODE ANALYZER</span>
+
+                    <h2>Analyze Your Python Code</h2>
+
+                    <p>
+                        Paste your Python code below and let
+                        CodeGuard AI check its structure,
+                        quality and possible bug risk.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="analyzer-card">
+
+                <div class="code-header">
+
+                    <div class="window-controls">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <span class="code-language">Python</span>
+
+                </div>
+
+
+                <textarea
+                    id="codeInput"
+                    placeholder="# Paste your Python code here...
+
+def calculate_total(items):
+    total = 0
+
+    for item in items:
+        total += item
+
+    return total"
+                ></textarea>
+
+
+                <div class="analyzer-footer">
+
+                    <div class="input-hint">
+                        Supports Python source code
+                    </div>
+
+                    <button id="analyzeBtn" class="analyze-btn">
+
+                        <span>Analyze Code</span>
+
+                        <span class="btn-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="resultStatus" class="result-status">
+                Ready to analyze your code
+            </div>
+
+        </section>
+
+
+        <!-- RESULTS SECTION -->
+        <section class="results-section">
+
+
+            <!-- SCORE CARDS -->
+            <div class="score-grid">
+
+                <div class="score-card quality-card">
+
+                    <div class="score-card-top">
+
+                        <div>
+                            <span class="score-label">CODE QUALITY</span>
+                            <h3>Quality Score</h3>
+                        </div>
+
+                        <div class="score-icon">Q</div>
+
+                    </div>
+
+
+                    <div class="score-value">
+                        <span id="qualityScore">—</span>
+                        <span class="score-max">/100</span>
+                    </div>
+
+
+                    <div id="qualityLevel" class="score-level">
+                        Awaiting analysis
+                    </div>
+
+                </div>
+
+
+                <div class="score-card risk-card">
+
+                    <div class="score-card-top">
+
+                        <div>
+                            <span class="score-label">PREDICTED BUG RISK</span>
+                            <h3>Risk Score</h3>
+                        </div>
+
+                        <div class="score-icon">!</div>
+
+                    </div>
+
+
+                    <div class="score-value">
+                        <span id="bugRisk">—</span>
+                        <span class="score-max">/100</span>
+                    </div>
+
+
+                    <div id="riskLevel" class="score-level">
+                        Awaiting analysis
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CODE METRICS -->
+            <div class="metrics-section">
+
+                <div class="section-heading compact">
+
+                    <div>
+                        <span class="section-label">CODE STRUCTURE</span>
+                        <h2>Code Metrics</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="metrics-grid">
+
+                    <div class="metric-card">
+                        <span class="metric-label">LINES</span>
+                        <strong id="metricLines">—</strong>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="metric-label">FUNCTIONS</span>
+                        <strong id="metricFunctions">—</strong>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="metric-label">BRANCHES</span>
+                        <strong id="metricBranches">—</strong>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="metric-label">LOOPS</span>
+                        <strong id="metricLoops">—</strong>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="metric-label">COMPLEXITY</span>
+                        <strong id="metricComplexity">—</strong>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="metric-label">MAX NESTING</span>
+                        <strong id="metricNesting">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OVERALL ANALYSIS MESSAGE -->
+            <div class="analysis-message-card">
+
+                <div class="message-icon">AI</div>
+
+                <div>
+
+                    <span class="message-label">OVERALL ANALYSIS</span>
+
+                    <p id="analysisMessage">
+                        Run an analysis to receive a summary
+                        of your Python code.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FINDINGS AND RECOMMENDATIONS -->
+            <section class="insights-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">CODE INSIGHTS</span>
+
+                        <h2>Findings & Recommendations</h2>
+
+                        <p>
+                            Understand what needs improvement
+                            and how you can make your code better.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="insights-grid">
+
+
+                    <!-- FINDINGS -->
+                    <div class="insight-card">
+
+                        <div class="insight-header">
+
+                            <div class="insight-icon finding-icon">
+                                !
+                            </div>
+
+                            <div>
+                                <h3>Findings</h3>
+                                <p>Issues noticed in your code</p>
+                            </div>
+
+                        </div>
+
+
+                        <div id="findingsContainer" class="insight-list">
+
+                            <div class="empty-insight">
+                                Run an analysis to view findings.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RECOMMENDATIONS -->
+                    <div class="insight-card">
+
+                        <div class="insight-header">
+
+                            <div class="insight-icon recommendation-icon">
+                                ✓
+                            </div>
+
+                            <div>
+                                <h3>Recommendations</h3>
+                                <p>Ways to improve your code</p>
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="recommendationsContainer"
+                            class="insight-list"
+                        >
+
+                            <div class="empty-insight">
+                                Run an analysis to view recommendations.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SIMPLE CODE ANALYSIS SECTION -->
+            <section class="model-performance-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">CODEGUARD AI</span>
+
+                        <h2>Code Analysis</h2>
+
+                        <p>
+                            CodeGuard AI checks different parts of your
+                            Python program and provides an easy-to-understand
+                            report.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="steps-grid">
+
+                    <div class="step-card">
+
+                        <div class="step-number">01</div>
+
+                        <div class="step-content">
+
+                            <h3>Code Structure</h3>
+
+                            <p>
+                                Checks the number of lines, functions,
+                                loops and conditions in your program.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">02</div>
+
+                        <div class="step-content">
+
+                            <h3>Code Quality</h3>
+
+                            <p>
+                                Gives a score to show how well your
+                                code is organised and structured.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">03</div>
+
+                        <div class="step-content">
+
+                            <h3>Bug Risk Estimation</h3>
+
+                            <p>
+                                Estimates the possibility of errors
+                                based on the structure of your code.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">04</div>
+
+                        <div class="step-content">
+
+                            <h3>Findings</h3>
+
+                            <p>
+                                Highlights areas that may need
+                                attention or improvement.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">05</div>
+
+                        <div class="step-content">
+
+                            <h3>Suggestions</h3>
+
+                            <p>
+                                Provides simple recommendations
+                                to make your code cleaner and easier
+                                to understand.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-message-card">
+
+                    <div class="message-icon">✓</div>
+
+                    <div>
+
+                        <span class="message-label">
+                            OUR GOAL
+                        </span>
+
+                        <p>
+                            CodeGuard AI helps beginners understand
+                            their code better, identify possible
+                            problems and learn better coding practices.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- HOW IT WORKS -->
+            <section class="how-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            SYSTEM WORKFLOW
+                        </span>
+
+                        <h2>How CodeGuard AI Works</h2>
+
+                        <p>
+                            A simple process that turns your Python
+                            code into useful analysis results.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="steps-grid">
+
+                    <div class="step-card">
+
+                        <div class="step-number">01</div>
+
+                        <div class="step-content">
+
+                            <h3>Code Input</h3>
+
+                            <p>
+                                Enter your Python program in the
+                                code analyzer.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">02</div>
+
+                        <div class="step-content">
+
+                            <h3>Code Checking</h3>
+
+                            <p>
+                                The system examines the structure
+                                of your Python code.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">03</div>
+
+                        <div class="step-content">
+
+                            <h3>Feature Extraction</h3>
+
+                            <p>
+                                Important details like loops,
+                                conditions and complexity are counted.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">04</div>
+
+                        <div class="step-content">
+
+                            <h3>ML Prediction</h3>
+
+                            <p>
+                                Machine learning models estimate
+                                code quality and possible bug risk.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">05</div>
+
+                        <div class="step-content">
+
+                            <h3>Final Report</h3>
+
+                            <p>
+                                The system displays scores,
+                                findings and suggestions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+
+                <strong>CodeGuard AI</strong>
+
+                <p>
+                    Intelligent machine learning based
+                    Python code analysis.
+                </p>
+
+            </div>
+
+
+            <div class="footer-right">
+
+                <span>B.Tech CS Mini Project</span>
+
+                <span>•</span>
+
+                <span>Machine Learning</span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+</body>
+
+</html>
