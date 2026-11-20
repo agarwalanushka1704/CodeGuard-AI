@@ -3,11 +3,13 @@
 # CODEGUARD AI - ML PREDICTOR
 # ==========================================
 
+from pyexpat import features
+
 import joblib
 import pandas as pd
 
 from feature_extractor import extract_features
-
+from ai_reviewer import analyze_with_gemini
 
 # Load trained machine learning models
 quality_model = joblib.load("model/quality_model.pkl")
@@ -212,9 +214,17 @@ def analyze_code(code):
     quality_level = get_quality_level(quality_score)
     risk_level = get_risk_level(bug_risk)
 
-    # Generate findings and suggestions
+    # Generate fallback findings and recommendations
     findings = generate_findings(features)
     recommendations = generate_recommendations(features)
+
+    # Get dynamic AI review from Gemini
+    ai_review = analyze_with_gemini(code)
+
+    # Use Gemini results if available
+    if ai_review:
+        findings = ai_review["findings"]
+        recommendations = ai_review["recommendations"]
 
     # Return final results
     return {

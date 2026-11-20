@@ -6,3 +6,5 @@ joblib
 matplotlib
 seaborn
 gunicorn
+google-genai
+python-dotenv
